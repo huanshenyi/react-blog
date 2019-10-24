@@ -9,9 +9,37 @@ import {
     NavItem,
     SearchWrapper,
     NavSearch,
+    SearchInfo,
+    SearchInfoTitle,
+    SearchInfoSwitch,
+    SearchInfoItem,
+    SearchInfoList,
     Addition,
     Button
 } from "./style"
+
+const getListArea = (show)=>{
+    if (show){
+        return (
+            <SearchInfo>
+                <SearchInfoTitle>
+                    人気キーワード
+                    <SearchInfoSwitch>チェンジ</SearchInfoSwitch>
+                </SearchInfoTitle>
+                <SearchInfoList>
+                    <SearchInfoItem>Python</SearchInfoItem>
+                    <SearchInfoItem>Go</SearchInfoItem>
+                    <SearchInfoItem>React</SearchInfoItem>
+                    <SearchInfoItem>Flutter</SearchInfoItem>
+                    <SearchInfoItem>TypeScript</SearchInfoItem>
+                    <SearchInfoItem>Vue.js</SearchInfoItem>
+                </SearchInfoList>
+            </SearchInfo>
+        )
+    }else {
+        return null
+    }
+};
 
 const Header = (props) => {
    return (
@@ -37,6 +65,7 @@ const Header = (props) => {
                        ></NavSearch>
                    </CSSTransition>
                    <span className={props.focused ? "focused iconfont" : "iconfont"}>&#xe621;</span>
+                   {getListArea(props.focused)}
                </SearchWrapper>
            </Nav>
            <Addition>
@@ -52,7 +81,8 @@ const Header = (props) => {
 
 const mapStateToProps = (state)=> {
     return {
-       focused: state.header.focused
+       focused: state.getIn(["header", "focused"])
+       // focused: state.get("header").get("focused")
     }
 };
 const mapDispathToProps = (dispatch) => {
