@@ -23,10 +23,12 @@ class Header extends Component{
         const { focused, list, page, mouseIn,totalPage, handleMouseEnter, handleMouseLeave, handleChangePage} = this.props;
         const newList = list.toJS();
         const pageList = [];
-        for (let i = (page - 1) * 10; i < page*10;i++){
-            pageList.push(
-                <SearchInfoItem key={newList[i]}>{newList[i]}</SearchInfoItem>
-            )
+        if (newList.length){
+            for (let i = (page - 1) * 10; i < page*10;i++){
+                pageList.push(
+                    <SearchInfoItem key={newList[i]}>{newList[i]}</SearchInfoItem>
+                )
+            }
         }
         if (focused || mouseIn){
             return (
@@ -53,7 +55,7 @@ class Header extends Component{
         }
     }
     render() {
-        const { focused,handleInputFocus,handleInputBlur } = this.props;
+        const { focused,handleInputFocus,handleInputBlur, list } = this.props;
         return (
             <HeaderWrapper>
                 <Logo />
@@ -72,7 +74,7 @@ class Header extends Component{
                         >
                             <NavSearch
                                 className={focused ? "focused" : ""}
-                                onFocus={handleInputFocus}
+                                onFocus={()=>handleInputFocus(list)}
                                 onBlur={handleInputBlur}
                             ></NavSearch>
                         </CSSTransition>
@@ -104,8 +106,10 @@ const mapStateTothis = (state)=> {
 };
 const mapDispathTothis = (dispatch) => {
     return {
-        handleInputFocus(){
-          dispatch(actionCreators.getList());
+        handleInputFocus(list){
+          if(list.size === 0){
+              dispatch(actionCreators.getList());
+          }
           dispatch(actionCreators.searchFocus());
         },
         handleInputBlur(){
