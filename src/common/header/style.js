@@ -104,6 +104,7 @@ export const SearchInfo = styled.div`
    top: 56px;
    width: 240px;
    padding: 0 20px;
+   background: white;
    box-shadow: 0 0 8px rgba(0,0,0,.2);
 `;
 export const SearchInfoList = styled.div`
