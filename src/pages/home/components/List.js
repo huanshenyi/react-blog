@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import { ListItem, ListInfo } from "../style";
+import { ListItem, ListInfo, LoadMore } from "../style";
 import { connect } from "react-redux";
 
 class List extends Component{
@@ -23,11 +23,18 @@ class List extends Component{
                        )
                    })
                }
+               <LoadMore onClick={}>MoreInfo</LoadMore>
            </div>
         )
     }
 }
 const mapStateToProps = (state) =>({
    list:state.getIn(["home", "articleList"])
+});
+
+const mapDispatch = (dispatch)=>({
+   getMoreList(){
+
+   }
 });
 export default connect(mapStateToProps)(List)
