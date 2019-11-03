@@ -1,4 +1,5 @@
 import React, {Component} from "react"
+import { connect } from "react-redux";
 import {
     DetailWrapper,
     DetailLeft,
@@ -13,7 +14,7 @@ class Detail extends Component{
         return (
             <DetailWrapper>
                 <DetailLeft>
-                    <Header>Goはプログラミング言語の1つである</Header>
+                    <Header>{this.props.title}</Header>
                     <Content>
                         <img src="https://uilicious.com/blog/content/images/size/w2000/2019/08/53pghgra05e674dgnkqq.png" alt=""/>
                         <p>2009年、GoogleでRobert Griesemer、ロブ・パイク、ケン・トンプソンによって設計された。Goは、静的型付け、C言語の伝統に則ったコンパイル言語...</p>
@@ -31,4 +32,9 @@ class Detail extends Component{
         )
     }
 }
-export default Detail
+const mapStateToProps = (state) =>({
+   title:state.getIn(["detail","title"]),
+   content:state.getIn(["detail","content"])
+});
+
+export default connect(mapStateToProps,null)(Detail);
