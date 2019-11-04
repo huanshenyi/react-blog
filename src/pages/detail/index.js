@@ -1,5 +1,6 @@
 import React, {Component} from "react"
 import { connect } from "react-redux";
+import { actionCreators } from "./store";
 import {
     DetailWrapper,
     DetailLeft,
@@ -15,12 +16,9 @@ class Detail extends Component{
             <DetailWrapper>
                 <DetailLeft>
                     <Header>{this.props.title}</Header>
-                    <Content>
-                        <img src="https://uilicious.com/blog/content/images/size/w2000/2019/08/53pghgra05e674dgnkqq.png" alt=""/>
-                        <p>2009年、GoogleでRobert Griesemer、ロブ・パイク、ケン・トンプソンによって設計された。Goは、静的型付け、C言語の伝統に則ったコンパイル言語...</p>
-                        <p>2009年、GoogleでRobert Griesemer、ロブ・パイク、ケン・トンプソンによって設計された。Goは、静的型付け、C言語の伝統に則ったコンパイル言語...</p>
-                        <p>2009年、GoogleでRobert Griesemer、ロブ・パイク、ケン・トンプソンによって設計された。Goは、静的型付け、C言語の伝統に則ったコンパイル言語...</p>
-                        <p>2009年、GoogleでRobert Griesemer、ロブ・パイク、ケン・トンプソンによって設計された。Goは、静的型付け、C言語の伝統に則ったコンパイル言語...</p>
+                    <Content dangerouslySetInnerHTML={{
+                        __html:this.props.content
+                    }}>
                     </Content>
                 </DetailLeft>
                 <DetailRight>
@@ -31,10 +29,19 @@ class Detail extends Component{
             </DetailWrapper>
         )
     }
+    componentDidMount() {
+        this.props.getDetail(this.props.match.params.id)
+    }
 }
 const mapStateToProps = (state) =>({
    title:state.getIn(["detail","title"]),
    content:state.getIn(["detail","content"])
 });
 
-export default connect(mapStateToProps,null)(Detail);
+const mapDispatch = (dispatch)=>({
+    getDetail(id){
+        dispatch(actionCreators.getDetail(id));
+    }
+});
+
+export default connect(mapStateToProps,mapDispatch)(Detail);

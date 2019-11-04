@@ -90,7 +90,7 @@ class Header extends Component{
                         <span className="iconfont">&#xe601;</span>
                         投稿する
                     </Button>
-                    <Button className="reg">登録</Button>
+                    <Button className="reg">新規登録</Button>
                 </Addition>
             </HeaderWrapper>
         )
