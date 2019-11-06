@@ -1,5 +1,7 @@
-import React, {PureComponent} from "react"
+import React, {PureComponent} from "react";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import { actionCreators } from "./store"
 import {
     LoginWrapper,
     LoginBox,
@@ -9,24 +11,31 @@ import {
 
 class Login extends PureComponent {
     render() {
-        return(
-            <LoginWrapper>
-                <LoginBox>
-                    <Input placeholder="アカウント"/>
-                    <Input placeholder="パスワード"/>
-                    <Button>ログイン</Button>
-                </LoginBox>
-            </LoginWrapper>
-        )
+        const { loginStatus } =this.props;
+        if (!loginStatus){
+            return(
+                <LoginWrapper>
+                    <LoginBox>
+                        <Input placeholder="アカウント" ref={(input)=>{this.account = input}} />
+                        <Input placeholder="パスワード" type="password" ref={(input)=>{this.password = input}}/>
+                        <Button onClick={() => this.props.login(this.account,this.password)}>ログイン</Button>
+                    </LoginBox>
+                </LoginWrapper>
+            )
+        }else {
+            return <Redirect to="/" />
+        }
     }
 }
 
-const mapStateToProps = ( state )=>({
-
+const mapState =(state)=>({
+    loginStatus:state.getIn(["login", 'login'])
 });
 
 const mapDispatchToProps = (dispatch)=>({
-
+    login(accountElem, passwordElem){
+        dispatch(actionCreators.login(accountElem.value, passwordElem.value));
+    }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapState, mapDispatchToProps)(Login)
