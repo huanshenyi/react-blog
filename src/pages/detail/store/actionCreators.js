@@ -13,6 +13,8 @@ export const getDetail = (id)=> {
      axios.get("http://127.0.0.1:8000/api/detail.json?id="+id).then((res)=>{ //バックエンドまた対応してない
          const result = res.data.data;
          dispatch(changeDetail(result.title,result.content));
+     }).catch((err)=>{
+         console.log(err)
      })
   }
 };

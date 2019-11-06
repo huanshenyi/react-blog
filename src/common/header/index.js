@@ -1,9 +1,9 @@
-import React , {Component} from "react"
-import { connect } from "react-redux"
+import React , {Component} from "react";
+import { connect } from "react-redux";
 import {Link} from "react-router-dom";
-import { CSSTransition } from "react-transition-group"
+import { CSSTransition } from "react-transition-group";
 import  { actionCreators }  from "./store";
-import { actionCreators as loginActionCreators } from "../../pages/login/store"
+import { actionCreators as loginActionCreators } from "../../pages/login/store";
 import {
     HeaderWrapper,
     Logo,
@@ -90,10 +90,12 @@ class Header extends Component{
                     </SearchWrapper>
                 </Nav>
                 <Addition>
-                    <Button className="writting">
-                        <span className="iconfont">&#xe601;</span>
-                        投稿する
-                    </Button>
+                    <Link to="/write">
+                        <Button className="writting">
+                            <span className="iconfont">&#xe601;</span>
+                            投稿する
+                        </Button>
+                    </Link>
                     <Button className="reg">新規登録</Button>
                 </Addition>
             </HeaderWrapper>
