@@ -16,3 +16,8 @@ D:\program\react\react-blog\src\pages\detail\index.js
         this.props.getDetail(this.props.match.params.id)
     }
 ```
+### ページの部分的なローディング
+
+```text
+https://github.com/jamiebuilds/react-loadable
+```
